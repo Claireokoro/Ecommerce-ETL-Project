@@ -30,11 +30,12 @@ from bs4 import BeautifulSoup
 import pandas as pd
 ```
 
+Sure, here's the code for the sections you provided:
+
 ## Scraping Single Page
 To begin the web scraping process, I utilized the BeautifulSoup library to extract book titles, prices, ratings, availability, and images from a single page of the online bookstore.
 
-python
-Copy code
+```python
 # Import necessary libraries
 import requests
 from bs4 import BeautifulSoup
@@ -69,12 +70,12 @@ for stock in soup.find_all('p', 'instock availability'):
     
 for img in soup.find_all('img'):
     images.append(img.attrs['src'].replace('..', 'http://books.toscrape.com'))
-    
+```
+
 ## Scraping Entire Site
 Building upon the single-page scraping, I implemented a loop to scrape data from multiple pages of the online bookstore. This allowed me to collect a comprehensive dataset.
 
-python
-Copy code
+```python
 # Define the number of pages to scrape
 num_of_pages = 50
 
@@ -92,6 +93,7 @@ for url in urls:
     
     # Utilize the extract_data function to collect data
     extract_data(soup)
+```
 
 ## Data Transformation
 After successfully scraping the required data from the online bookstore, the next step involved transforming and preparing the scraped data for analysis. This process included converting and cleaning the data to ensure its suitability for further insights.
