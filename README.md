@@ -18,7 +18,7 @@
 - [Contributions](#contributions)
 
 ---
-
+ 
 ## Introduction
 This repository showcases a web scraping project involving the extraction of book-related data from an online bookstore using Python libraries like `requests`, `BeautifulSoup`, and `pandas`. The scraped data was then transformed, cleaned, and loaded into a CSV file for further analysis. The extracted dataset was later visualized using Microsoft PowerBI to create an insightful dashboard.
 
