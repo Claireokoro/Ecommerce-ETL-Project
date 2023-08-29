@@ -30,35 +30,100 @@ from bs4 import BeautifulSoup
 import pandas as pd
 ```
 
-### Scraping Single Page
-The provided code demonstrates how to scrape book titles, prices, ratings, availability, and images from a single page of the online bookstore.
+## Scraping Single Page
+To begin the web scraping process, I utilized the BeautifulSoup library to extract book titles, prices, ratings, availability, and images from a single page of the online bookstore.
 
-### Scraping Entire Site
-The code snippets illustrate the process of scraping data from multiple pages of the bookstore using a loop and collecting information into lists.
+python
+Copy code
+# Import necessary libraries
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# Define the URL to scrape
+url = 'http://books.toscrape.com/catalogue/page-1.html'
+
+# Send a request to the URL and parse the response with BeautifulSoup
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Initialize empty lists to store scraped data
+titles = []
+prices = []
+ratings = []
+availability = []
+images = []
+
+# Extract data using BeautifulSoup
+for h3 in soup.find_all('h3'):
+    titles.append(h3.a.attrs['title'])
+    
+for price in soup.find_all('p', 'price_color'):
+    prices.append(price.text)
+    
+for rating in soup.find_all('p', 'star-rating'):
+    ratings.append(rating.attrs['class'][1])
+    
+for stock in soup.find_all('p', 'instock availability'):
+    availability.append(stock.text.strip())
+    
+for img in soup.find_all('img'):
+    images.append(img.attrs['src'].replace('..', 'http://books.toscrape.com'))
+    
+## Scraping Entire Site
+Building upon the single-page scraping, I implemented a loop to scrape data from multiple pages of the online bookstore. This allowed me to collect a comprehensive dataset.
+
+python
+Copy code
+# Define the number of pages to scrape
+num_of_pages = 50
+
+# Initialize an empty list to store URLs
+urls = []
+
+# Generate URLs for each page
+for i in range(1, num_of_pages + 1):
+    urls.append(f'http://books.toscrape.com/catalogue/page-{i}.html')
+
+# Loop through each URL and extract data
+for url in urls:
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Utilize the extract_data function to collect data
+    extract_data(soup)
 
 ## Data Transformation
+After successfully scraping the required data from the online bookstore, the next step involved transforming and preparing the scraped data for analysis. This process included converting and cleaning the data to ensure its suitability for further insights.
+
 ### Rating Mapping
-Mapping text ratings ('One', 'Two', 'Three', 'Four', 'Five') to numerical values (1, 2, 3, 4, 5) for better analysis.
+The ratings of books were originally in text format (e.g., 'One', 'Two', 'Three', 'Four', 'Five'). To facilitate analysis, these ratings were mapped to numerical values (1, 2, 3, 4, 5).
+
+```python
+# Mapping text ratings to numerical values
+rating_mapping = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
+df['Rating'] = df['Rating'].replace(rating_mapping)
+```
 
 ### Data Cleaning
-Cleaning the scraped data, converting price to a float, and preparing it for analysis.
+Several cleaning steps were taken to ensure the data's accuracy and consistency. One crucial step involved converting the 'Price' column to a float by removing any currency symbols.
 
-## Data Loading
-Saving the transformed data into a CSV file named 'Books.csv'.
+```python
+# Removing currency sign and converting 'Price' to float
+df['Price'] = df['Price'].str.replace('Â£', '').astype(float)
+```
+
+## Data Saving
+Once the data was transformed and cleaned, it was saved into a CSV file named 'Books.csv' for future analysis and visualization.
+
+```python
+# Saving the transformed data into a CSV file
+df.to_csv('Books.csv', index=False)
+```
 
 ## PowerBI Visualization
 Utilizing Microsoft PowerBI to visualize the scraped and cleaned data, showcasing book-related insights. The visualization highlights top and bottom books by price, average ratings, total number of books, average price, and books by rating.
 
-## Repository Structure
-```
-├── notebooks/
-│   ├── Web_Scraping_Notebook.ipynb
-│   └── PowerBI_Dashboard.ipynb
-├── data/
-│   └── Books.csv
-├── Bookstore_Scraping_PowerBI.pbix
-└── README.md
-```
 
 ## Usage
 1. Run the provided web scraping code in `Web_Scraping_Notebook.ipynb` to extract data.
