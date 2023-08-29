@@ -1,8 +1,5 @@
 # OnlineBookstore-ETL-Project
 
-
-Description: **Web Scraping and PowerBI Visualization for Online Bookstore Data**
-
 ---
 
 ## Table of Contents
