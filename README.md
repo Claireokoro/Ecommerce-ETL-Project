@@ -124,7 +124,7 @@ df.to_csv('Books.csv', index=False)
 ```
 
 ## PowerBI Visualization
-Utilizing Microsoft PowerBI to visualize the scraped and cleaned data, showcasing book-related insights. The visualization highlights top and bottom books by price, average ratings, total number of books, average price, and books by rating. To interact with my dashboard https://app.powerbi.com/view?r=eyJrIjoiOTNmZjZhMTQtZjM5Ny00MjdiLWFkNTktZDhjNTU0NzczNTBjIiwidCI6ImMyOWNlYjUwLWE1MjAtNDg2Yi1hN2Q5LTM5NWMwZWU5MWM3OCJ9
+Utilizing Microsoft PowerBI to visualize the scraped and cleaned data, showcasing book-related insights. The visualization highlights top and bottom books by price, average ratings, total number of books, average price, and books by rating. To interact with my dashboard, click this [Power BI Service](https://app.powerbi.com/view?r=eyJrIjoiOTNmZjZhMTQtZjM5Ny00MjdiLWFkNTktZDhjNTU0NzczNTBjIiwidCI6ImMyOWNlYjUwLWE1MjAtNDg2Yi1hN2Q5LTM5NWMwZWU5MWM3OCJ9)
 
 
 ## Usage
